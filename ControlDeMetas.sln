@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.Client", "ControlDeMetas.Client\ControlDeMetas.Client.csproj", "{6B3DF695-77DA-4A83-860B-30A75C67B9E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.Server", "ControlDeMetas.Server\ControlDeMetas.Server.csproj", "{D3DB8E77-3712-45BA-AB88-B351CFBE430D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6B3DF695-77DA-4A83-860B-30A75C67B9E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B3DF695-77DA-4A83-860B-30A75C67B9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B3DF695-77DA-4A83-860B-30A75C67B9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B3DF695-77DA-4A83-860B-30A75C67B9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1A03A901-FF2A-4A7A-A904-5B4388A3A08C}
+	EndGlobalSection
+EndGlobal
