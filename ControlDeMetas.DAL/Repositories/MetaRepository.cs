@@ -1,12 +1,13 @@
 ﻿using ControlDeMetas.DAL.Abstract;
+using ControlDeMetas.DAL.Contracts;
 using ControlDeMetas.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControlDeMetas.DAL.Repositories
 {
-    public class MetaRepository: Repository<Meta>
+    public class MetaRepository: Repository<Meta>, IRepository<Meta>
     {
-        public MetaRepository(DbContext dbContext) : base(dbContext)
+        public MetaRepository(MetasDbContext dbContext) : base(dbContext)
         {
         }
 

@@ -1,6 +1,12 @@
 using ControlDeMetas.BLL.Contracts;
 using ControlDeMetas.BLL.Services;
+using ControlDeMetas.DAL;
+using ControlDeMetas.DAL.Abstract;
+using ControlDeMetas.DAL.Contracts;
+using ControlDeMetas.DAL.Repositories;
 using ControlDeMetas.Shared.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ControlDeMetas.Server
 {
@@ -18,6 +24,14 @@ namespace ControlDeMetas.Server
             builder.Services.AddSwaggerGen();
 
             // Agregando la dependencia hacia la capa de negocio
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<MetasDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            builder.Services.AddScoped<IRepository<Meta>, MetaRepository>();
+            builder.Services.AddScoped<IRepository<Tarea>, TareaRepository>();
+
             builder.Services.AddScoped<IBaseService<Meta>, MetaService>();
             builder.Services.AddScoped<IBaseService<Tarea>, TareaService>();
 
