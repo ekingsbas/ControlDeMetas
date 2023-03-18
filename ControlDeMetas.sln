@@ -3,9 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.Client", "ControlDeMetas.Client\ControlDeMetas.Client.csproj", "{6B3DF695-77DA-4A83-860B-30A75C67B9E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlDeMetas.Client", "ControlDeMetas.Client\ControlDeMetas.Client.csproj", "{6B3DF695-77DA-4A83-860B-30A75C67B9E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.Server", "ControlDeMetas.Server\ControlDeMetas.Server.csproj", "{D3DB8E77-3712-45BA-AB88-B351CFBE430D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControlDeMetas.Server", "ControlDeMetas.Server\ControlDeMetas.Server.csproj", "{D3DB8E77-3712-45BA-AB88-B351CFBE430D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.DAL", "ControlDeMetas.DAL\ControlDeMetas.DAL.csproj", "{F39D0C99-8991-4AB2-A312-3A1E2B5B7758}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ControlDeMetas.Database", "ControlDeMetas.Database\ControlDeMetas.Database.sqlproj", "{760081BA-D42B-463B-861B-312BFE486856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.Shared", "ControlDeMetas.Shared\ControlDeMetas.Shared.csproj", "{4ABE773E-3D9D-460E-9C41-79F272AF2258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlDeMetas.BLL", "ControlDeMetas.BLL\ControlDeMetas.BLL.csproj", "{AA8165F2-674B-4E8D-94E3-E2589F4E3A25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,24 @@ Global
 		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3DB8E77-3712-45BA-AB88-B351CFBE430D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F39D0C99-8991-4AB2-A312-3A1E2B5B7758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F39D0C99-8991-4AB2-A312-3A1E2B5B7758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F39D0C99-8991-4AB2-A312-3A1E2B5B7758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F39D0C99-8991-4AB2-A312-3A1E2B5B7758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{760081BA-D42B-463B-861B-312BFE486856}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4ABE773E-3D9D-460E-9C41-79F272AF2258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ABE773E-3D9D-460E-9C41-79F272AF2258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ABE773E-3D9D-460E-9C41-79F272AF2258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ABE773E-3D9D-460E-9C41-79F272AF2258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA8165F2-674B-4E8D-94E3-E2589F4E3A25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA8165F2-674B-4E8D-94E3-E2589F4E3A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA8165F2-674B-4E8D-94E3-E2589F4E3A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA8165F2-674B-4E8D-94E3-E2589F4E3A25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

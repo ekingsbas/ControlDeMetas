@@ -10,4 +10,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ControlDeMetas.BLL\ControlDeMetas.BLL.csproj" />
+    <ProjectReference Include="..\ControlDeMetas.Shared\ControlDeMetas.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
