@@ -1,4 +1,5 @@
-﻿using ControlDeMetas.Shared.Entities;
+﻿using ControlDeMetas.DAL.Configurations;
+using ControlDeMetas.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControlDeMetas.DAL
@@ -17,12 +18,16 @@ namespace ControlDeMetas.DAL
         {
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            base.OnModelCreating(modelBuilder);
+
+            // Agregar configuraciones de entidades
+            modelBuilder.ApplyConfiguration(new MetaConfiguration());
+            modelBuilder.ApplyConfiguration(new TareaConfiguration());
         }
 
-        public DbSet<Meta> Clientes { get; set; }
-        public DbSet<Tarea> Productos { get; set; }
+        public DbSet<Meta> Metas { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
     }
 }

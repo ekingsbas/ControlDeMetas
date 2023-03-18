@@ -6,5 +6,7 @@
         public DateTime FechaCreacion { get; set; }
         public int TotalTareas { get; set; }
         public decimal Cumplimiento { get; set; }
+
+        public ICollection<Tarea> Tareas { get; set; } // Propiedad de navegación
     }
 }
