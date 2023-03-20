@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ControlDeMetas.Shared\ControlDeMetas.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

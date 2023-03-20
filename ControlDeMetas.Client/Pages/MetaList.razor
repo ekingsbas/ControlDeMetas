@@ -1,0 +1,53 @@
+﻿@page "/metas"
+
+<div class="navbar">
+    <h1>Mi aplicación</h1>
+</div>
+
+<div class="container">
+    <div class="master-column">
+        <!-- Lista de metas -->
+        <div class="meta-group">
+            <div class="meta-name">
+                <span class="bold">Meta 1</span>
+                <div class="meta-actions">
+                    <span class="edit-icon"></span>
+                    <span class="delete-icon"></span>
+                </div>
+            </div>
+            <div class="meta-date">22 de marzo de 2023</div>
+            <div class="meta-progress">
+                <div class="progress-bar" style="width: 50%;"></div>
+                <div class="progress-label">3 de 8 tareas completadas</div>
+            </div>
+        </div>
+        
+        <!-- Repite para todas las metas -->
+        
+    </div>
+    <div class="detail-column">
+        <!-- Detalle de la meta seleccionada -->
+        <div class="meta-detail">
+            <div class="meta-title">Detalle de la meta 1</div>
+            <div class="meta-buttons">
+                <button class="add-task-button">Agregar tarea</button>
+                <button class="complete-task-button">Completar tarea</button>
+                <button class="edit-meta-button">Editar</button>
+                <button class="delete-meta-button">Eliminar</button>
+            </div>
+            <div class="task-table">
+                <div class="task-table-header">
+                    <input type="text" class="task-filter" placeholder="Filtrar tareas...">
+                    <span class="task-header-item"></span>
+                    <span class="task-header-item important-header"></span>
+                    <span class="task-header-item">Nombre</span>
+                    <span class="task-header-item">Fecha</span>
+                    <span class="task-header-item">Estado</span>
+                </div>
+                
+                <!-- Lista de tareas -->
+                
+            </div>
+        </div>
+    </div>
+</div>

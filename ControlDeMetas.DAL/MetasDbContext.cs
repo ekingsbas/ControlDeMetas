@@ -27,7 +27,7 @@ namespace ControlDeMetas.DAL
             modelBuilder.ApplyConfiguration(new TareaConfiguration());
         }
 
-        public DbSet<Meta> Metas { get; set; }
-        public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<Meta> Meta { get; set; }
+        public DbSet<Tarea> Tarea { get; set; }
     }
 }

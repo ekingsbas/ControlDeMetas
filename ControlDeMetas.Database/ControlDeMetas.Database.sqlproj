@@ -24,6 +24,7 @@
     <TargetDatabaseSet>True</TargetDatabaseSet>
     <DefaultCollation>Modern_Spanish_CI_AS</DefaultCollation>
     <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <GenerateCreateScript>True</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -64,5 +65,8 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Meta.sql" />
     <Build Include="dbo\Tables\Tarea.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ControlDeMetas.Database.refactorlog" />
   </ItemGroup>
 </Project>

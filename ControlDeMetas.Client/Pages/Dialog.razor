@@ -1,0 +1,24 @@
+﻿@page "/dialogbox"
+<h1>Dialog Box Example</h1>
+
+<button class="btn btn-primary" @onclick="ShowDialog">Show Dialog</button>
+
+<div class="modal" tabindex="-1" role="dialog" id="dialog-example" style="display:none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@_dialogTitle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => CloseDialog(false)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @_dialogMessage
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => CloseDialog(false)">Cancel</button>
+                <button type="button" class="btn btn-primary" @onclick="() => CloseDialog(true)">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
