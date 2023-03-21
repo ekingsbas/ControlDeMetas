@@ -37,7 +37,7 @@ namespace ControlDeMetas.Client.Pages
             //Tareas =  await _tareaService.GetAll();
 
             await LoadList();
-            await Refresh();
+            //await Refresh();
         }
 
         private async Task LoadList()
@@ -59,6 +59,7 @@ namespace ControlDeMetas.Client.Pages
         {
             await LoadList();
             StateHasChanged();
+            
         }
 
     }
