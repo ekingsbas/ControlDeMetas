@@ -1,14 +1,7 @@
 ﻿using ControlDeMetas.Client.Services;
 using ControlDeMetas.Shared.Entities;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
 using Syncfusion.Blazor.Grids;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Net.Sockets;
-using System.Threading.Tasks;
 
 
 namespace ControlDeMetas.Client.Pages
@@ -20,12 +13,16 @@ namespace ControlDeMetas.Client.Pages
         [Inject]
         public TareaClientService _tareaService { get; set; }
 
+        [Inject]
+        public MetaClientService _metaService { get; set; }
+
         [Parameter]
         public long ? MetaId { get; set; } = null;
 
         string[] pagerDropdown = new string[] { "Todas", "5", "10", "15", "20" };
         private List<Tarea> Tareas = new List<Tarea>();
         private Meta MetaSelected= new Meta();
+        
 
         public TareaList()
         {
@@ -44,6 +41,7 @@ namespace ControlDeMetas.Client.Pages
         {
             if (MetaId != null)
             {
+                MetaSelected = await _metaService.GetById((long)MetaId);
                 Tareas = await _tareaService.GetAllById((long)MetaId);
             }
             else

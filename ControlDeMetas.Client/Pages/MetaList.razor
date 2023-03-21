@@ -1,4 +1,6 @@
-﻿@page "/metas"
+﻿@using Syncfusion.Blazor.Buttons;
+
+@page "/metas"
 
 <style>
 
@@ -167,11 +169,12 @@
         margin-left: 1rem;
     }
 
+    
 </style>
 
 <div>
     <div class="apptitle">
-        <h1>Control de Tareas</h1>
+        <h1>Control de Metas</h1>
     </div>
 
     <div class="container">
@@ -184,6 +187,7 @@
                     <div class="meta-name">
                         <span class="bold">@meta.Nombre</span>
                         <div class="meta-actions">
+                            @*<SfButton IconCss="e-icons e-chevron-down-fill" Content="Show dropdown" IconPosition="IconPosition.Right"></SfButton>*@
                             <span class="edit-icon"></span>
                             <span class="delete-icon"></span>
                         </div>
@@ -205,7 +209,7 @@
         <div class="detail-column">
             <!-- Detalle de la meta seleccionada -->
             <div class="meta-detail">
-                <div class="meta-title">Detalle de la meta 1</div>
+                <div class="meta-title">@nombreMeta</div>
                 <div class="meta-buttons">
                     <button class="add-task-button">Agregar tarea</button>
                     <button class="complete-task-button">Completar tarea</button>

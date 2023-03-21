@@ -20,7 +20,7 @@ namespace ControlDeMetas.Client.Services
             return await _httpClient.GetFromJsonAsync<List<Meta>>("api/metas");
         }
 
-        public async Task<Meta> GetById(int id)
+        public async Task<Meta> GetById(long id)
         {
             return await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{id}");
         }

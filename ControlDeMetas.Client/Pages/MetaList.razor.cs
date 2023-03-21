@@ -23,6 +23,10 @@ namespace ControlDeMetas.Client.Pages
 
         private TareaList _tareaList;
 
+        private string nombreMeta;
+
+        private Meta metaSeleccionada = new Meta();
+
         public MetaList()
         {
             
@@ -50,11 +54,17 @@ namespace ControlDeMetas.Client.Pages
             //}
         }
 
-        private void MetaClickedAtIndex(long i)
+        private async void MetaClickedAtIndex(long i)
         {
             
             Console.WriteLine($"Meta clicked at index {i}!");
             selectedMetaId = i;
+
+            metaSeleccionada = await _metaService.GetById((long)selectedMetaId);
+
+            if (metaSeleccionada != null)
+                nombreMeta = metaSeleccionada.Nombre;
+
             if (_tareaList != null)
                 _tareaList.Refresh();
 
