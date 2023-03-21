@@ -45,7 +45,7 @@ namespace ControlDeMetas.DAL.Abstract
             return await _dbSet.ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(long id)
         {
             return await _dbSet.FindAsync(id);
         }

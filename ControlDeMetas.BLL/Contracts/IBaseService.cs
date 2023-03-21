@@ -6,7 +6,7 @@ namespace ControlDeMetas.BLL.Contracts
     {
         IRepository<TEntity> Repository { get; }
         Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(long id);
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
         Task<bool> DeleteAsync(int id);

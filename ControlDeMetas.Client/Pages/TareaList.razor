@@ -1,0 +1,46 @@
+﻿@using ControlDeMetas.Shared.Entities;
+@using Syncfusion.Blazor;
+@using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Buttons;
+
+<div>
+    @if (Tareas != null)
+    {
+        <SfGrid DataSource="@Tareas" AllowPaging="true" AllowFiltering="true" AllowSelection="true" @ref="Grid">
+            <GridEvents RowSelecting="RowSelectingHandler" TValue="Tarea"></GridEvents>
+            <GridFilterSettings Mode="FilterBarMode.Immediate" ImmediateModeDelay="200">
+            </GridFilterSettings>
+            <GridPageSettings PageSize="10" PageCount="5" PageSizes="@pagerDropdown">
+            </GridPageSettings>
+            <GridSelectionSettings EnableToggle="true" PersistSelection="true" CheckboxMode="CheckboxSelectionType.ResetOnRowClick" Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GridSelectionSettings>
+            <GridColumns>
+                <GridColumn Type="ColumnType.CheckBox" Width="50" AllowFiltering="false"></GridColumn>
+                <GridColumn TextAlign="TextAlign.Center" Width="50"AllowFiltering="false">
+                    <Template>
+                        @{
+                            var val = (context as Tarea);
+                            if (val.Importante)
+                            {
+
+                                <span class="e-icons e-bullet-2" style="color:orange" data-icon="bx:bxs-error-alt" data-inline="false"></span>
+                            }
+                            else
+                            {
+                                <span class="e-icons e-bullet-2" style="color:grey" data-icon="bx:bxs-error-alt" data-inline="false"></span>
+                            }
+                        }
+                    </Template>
+                </GridColumn>
+                <GridColumn Field=@nameof(Tarea.Nombre) HeaderText="Tarea"></GridColumn>
+                <GridColumn Field=@nameof(Tarea.FechaCreacion) HeaderText="Fecha"></GridColumn>
+                <GridColumn Field=@nameof(Tarea.Estatus) HeaderText="Estado"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    }
+</div>
+<style>
+    .e-bullet-2:before {
+        content: '\e270';
+        font-size: 40px;
+    }
+</style>

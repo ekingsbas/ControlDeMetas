@@ -1,36 +1,35 @@
 ﻿using ControlDeMetas.Client.Services;
 using ControlDeMetas.Shared.Entities;
 using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor.DropDowns;
+using System;
 
 
 namespace ControlDeMetas.Client.Pages
 {
     public partial class MetaList : ComponentBase
     {
-        private readonly MetaService _metaService;
-        //private readonly HttpClient _httpClient;
-        //private readonly NavigationManager _navigationManager;
-
-        //public MetaList(MetaService metaService, NavigationManager navigationManager)
-        //{
-        //    _metaService = metaService;
-        //    _navigationManager = navigationManager;
-        //}
-
-        //public MetaService _metaService { get; set; }
+        
         [Inject]
         public NavigationManager _navigationManager { get; set; }
 
+       
+
         [Inject]
-        public HttpClient _httpClient { get; set; }
+        public MetaClientService _metaService { get; set; }
+
+
+        private long? selectedMetaId;
+
+        private TareaList _tareaList;
 
         public MetaList()
         {
-            _metaService = new MetaService(_httpClient);
+            
 
         }
 
-        private List<Meta> Metas;
+        private List<Meta> Metas = new List<Meta>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -49,6 +48,16 @@ namespace ControlDeMetas.Client.Pages
             //    await _metaService.Delete(id);
             //    Metas = await _metaService.GetAll();
             //}
+        }
+
+        private void MetaClickedAtIndex(long i)
+        {
+            
+            Console.WriteLine($"Meta clicked at index {i}!");
+            selectedMetaId = i;
+            if (_tareaList != null)
+                _tareaList.Refresh();
+
         }
     }
 }

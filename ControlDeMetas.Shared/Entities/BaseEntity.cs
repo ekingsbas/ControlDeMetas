@@ -8,6 +8,6 @@ namespace ControlDeMetas.Shared.Entities
 {
     public class BaseEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
     }
 }

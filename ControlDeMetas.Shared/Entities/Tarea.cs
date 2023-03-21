@@ -5,7 +5,8 @@ namespace ControlDeMetas.Shared.Entities
     public class Tarea : BaseEntity
     {
 
-        public int IdMeta { get; set; } //Clave foranea
+        public long IdMeta { get; set; } //Clave foranea
+        public bool Importante { get; set; }
         public string Nombre { get; set; }
         public DateTime FechaCreacion { get; set; } 
         public EstatusTarea  Estatus { get; set; }

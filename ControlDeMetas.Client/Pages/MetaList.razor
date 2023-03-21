@@ -1,52 +1,227 @@
 ﻿@page "/metas"
 
-<div class="navbar">
-    <h1>Mi aplicación</h1>
-</div>
+<style>
 
-<div class="container">
-    <div class="master-column">
-        <!-- Lista de metas -->
-        <div class="meta-group">
-            <div class="meta-name">
-                <span class="bold">Meta 1</span>
-                <div class="meta-actions">
-                    <span class="edit-icon"></span>
-                    <span class="delete-icon"></span>
-                </div>
-            </div>
-            <div class="meta-date">22 de marzo de 2023</div>
-            <div class="meta-progress">
-                <div class="progress-bar" style="width: 50%;"></div>
-                <div class="progress-label">3 de 8 tareas completadas</div>
-            </div>
-        </div>
-        
-        <!-- Repite para todas las metas -->
-        
+
+    /* Barra superior */
+    .apptitle {
+        background-color: #007bff; /* color de fondo azul */
+        color: #fff; /* color de letra blanco */
+        padding: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: Calibri, GillSans, Trebuchet, sans-serif;
+    }
+
+    /* Contenedor principal */
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 1rem;
+        font-family: Calibri, GillSans, Trebuchet, sans-serif;
+    }
+
+    /* Columna izquierda */
+    .master-column {
+        width: 50%; /* ancho de la columna izquierda */
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
+    }
+
+    .meta-group {
+        border: 1px solid #ccc; /* borde del grupo de metas */
+        border-radius: 5px; /* redondeado de bordes */
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    .meta-group:hover {
+        background-color: ghostwhite;
+    }
+
+    .meta-group-selected {
+        border: 1px solid #ccc; 
+        border-radius: 5px; 
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background-color: ghostwhite;
+    }
+
+    .meta-name {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .meta-actions {
+        display: flex;
+    }
+
+    .edit-icon,
+    .delete-icon {
+        margin-left: 0.5rem;
+    }
+
+    .meta-date {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .meta-progress {
+        height: 20px;
+        border-radius: 5px;
+        /*background-color: #eee;*/
+        margin-bottom: 0.5rem;
+    }
+
+    .progress-bar {
+        height: 100%;
+        border-radius: 5px;
+        background-color: #007bff;
+    }
+
+    .progress-label {
+        font-size: 0.8rem;
+        text-align: left;
+        float: left;
+    }
+
+    .progress-percent {
+        font-size: 0.8rem;
+        text-align: right;
+    }
+
+    /* Columna derecha */
+    .detail-column {
+        width: 50%; /* ancho de la columna derecha */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .meta-detail {
+        border: 1px solid #ccc; /* borde del detalle de meta */
+        border-radius: 5px; /* redondeado de bordes */
+        padding: 1rem;
+    }
+
+    .meta-title {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .meta-buttons {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .add-task-button,
+    .complete-task-button,
+    .edit-meta-button,
+    .delete-meta-button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+
+        .add-task-button:hover,
+        .complete-task-button:hover,
+        .edit-meta-button:hover,
+        .delete-meta-button:hover {
+            background-color: #0069d9;
+        }
+
+    .task-table {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1rem;
+    }
+
+    .task-table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .task-filter {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 0.5rem;
+        margin-right: 1rem;
+    }
+
+    .task-header-item {
+        font-weight: bold;
+    }
+
+    .important-header {
+        margin-left: 1rem;
+    }
+
+</style>
+
+<div>
+    <div class="apptitle">
+        <h1>Control de Tareas</h1>
     </div>
-    <div class="detail-column">
-        <!-- Detalle de la meta seleccionada -->
-        <div class="meta-detail">
-            <div class="meta-title">Detalle de la meta 1</div>
-            <div class="meta-buttons">
-                <button class="add-task-button">Agregar tarea</button>
-                <button class="complete-task-button">Completar tarea</button>
-                <button class="edit-meta-button">Editar</button>
-                <button class="delete-meta-button">Eliminar</button>
-            </div>
-            <div class="task-table">
-                <div class="task-table-header">
-                    <input type="text" class="task-filter" placeholder="Filtrar tareas...">
-                    <span class="task-header-item"></span>
-                    <span class="task-header-item important-header"></span>
-                    <span class="task-header-item">Nombre</span>
-                    <span class="task-header-item">Fecha</span>
-                    <span class="task-header-item">Estado</span>
+
+    <div class="container">
+        <div class="master-column">
+            <!-- Lista de metas -->
+            @foreach (var meta in Metas)
+            {
+                @*<div class="meta-group">*@
+                <div class="meta-group" id="@meta.Id" @onclick="() => MetaClickedAtIndex(meta.Id)">
+                    <div class="meta-name">
+                        <span class="bold">@meta.Nombre</span>
+                        <div class="meta-actions">
+                            <span class="edit-icon"></span>
+                            <span class="delete-icon"></span>
+                        </div>
+                    </div>
+                    <div class="meta-date">Fecha creada: @meta.FechaCreacion.ToString("d")</div>
+                    <div class="meta-progress">
+                        <div class="progress-label">Tareas completadas: @meta.TareasCompletadas / @meta.TotalTareas</div>
+                        <div class="progress-percent"> @(Convert.ToInt32(meta.Cumplimiento))%</div>
+                        <div class="w3-light-grey w3-round">
+                            <div class="w3-container w3-blue w3-round" style="height:10px; width:@(Convert.ToInt32(meta.Cumplimiento))%"></div>
+                        </div>
+
+                    </div>
                 </div>
-                
-                <!-- Lista de tareas -->
-                
+            }
+
+
+        </div>
+        <div class="detail-column">
+            <!-- Detalle de la meta seleccionada -->
+            <div class="meta-detail">
+                <div class="meta-title">Detalle de la meta 1</div>
+                <div class="meta-buttons">
+                    <button class="add-task-button">Agregar tarea</button>
+                    <button class="complete-task-button">Completar tarea</button>
+                    <button class="edit-meta-button">Editar</button>
+                    <button class="delete-meta-button">Eliminar</button>
+                </div>
+                <div>
+
+                    <!-- Lista de tareas -->
+                    @if(selectedMetaId != null)
+                    {
+                        <TareaList MetaId="@selectedMetaId" @ref="_tareaList" />
+                    }
+                    
+
+                </div>
             </div>
         </div>
     </div>

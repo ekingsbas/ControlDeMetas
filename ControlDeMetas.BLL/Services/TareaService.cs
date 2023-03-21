@@ -25,6 +25,11 @@ namespace ControlDeMetas.BLL.Services
             return await _tareaRepository.ListAsync(p => p.Estatus == estatusTarea);
         }
 
+        public async Task<IEnumerable<Tarea>> GetTareasByMetaIdAsync(long idMeta)
+        {
+            return await _tareaRepository.ListAsync(p => p.IdMeta == idMeta);
+        }
+
         public async Task<IEnumerable<Tarea>> SearchTareasAsync(string searchTerm)
         {
             return await _tareaRepository.ListAsync(p =>

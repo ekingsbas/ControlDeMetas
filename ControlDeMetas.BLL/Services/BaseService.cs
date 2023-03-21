@@ -16,12 +16,17 @@ namespace ControlDeMetas.BLL.Services
 
         public IRepository<TEntity> Repository => _repository;
 
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(long id)
         {
             return await _repository.GetByIdAsync(id);
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
+
+        public virtual async Task<IEnumerable<TEntity>> GetAllByIdAsync()
         {
             return await _repository.GetAllAsync();
         }

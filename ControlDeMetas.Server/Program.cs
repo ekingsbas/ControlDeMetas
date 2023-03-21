@@ -35,6 +35,14 @@ namespace ControlDeMetas.Server
             builder.Services.AddScoped<IBaseService<Meta>, MetaService>();
             builder.Services.AddScoped<IBaseService<Tarea>, TareaService>();
 
+            builder.Services.AddCors(policy =>
+            {
+                policy.AddDefaultPolicy(builder => builder.WithOrigins("http://localhost:5242")
+                     .AllowAnyMethod()
+                     .AllowAnyHeader()
+                     .AllowCredentials());
+            });
+
 
             var app = builder.Build();
 
@@ -45,8 +53,10 @@ namespace ControlDeMetas.Server
                 app.UseSwaggerUI();
             }
 
+           
+            app.UseRouting();
+            app.UseCors();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
