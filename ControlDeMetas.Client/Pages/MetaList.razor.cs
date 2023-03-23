@@ -2,6 +2,8 @@
 using ControlDeMetas.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Syncfusion.Blazor.DropDowns;
+using Syncfusion.Blazor.Inputs;
+using Syncfusion.Blazor.Popups;
 using System;
 
 
@@ -26,6 +28,11 @@ namespace ControlDeMetas.Client.Pages
         private string nombreMeta;
 
         private Meta metaSeleccionada = new Meta();
+        private bool Visibility { get; set; } = false;
+
+        private string NombreMeta;
+
+        SfTextBox MetaTextboxObj;
 
         public MetaList()
         {
@@ -37,6 +44,11 @@ namespace ControlDeMetas.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await CargarMetas();
+        }
+
+        private async Task CargarMetas()
+		{
             Metas = await _metaService.GetAll();
         }
 
@@ -47,11 +59,28 @@ namespace ControlDeMetas.Client.Pages
 
         private async void DeleteMeta(int id)
         {
-            //if (await JS.InvokeAsync<bool>("confirm", $"¿Estás seguro que deseas eliminar la meta con Id {id}?"))
-            //{
-            //    await _metaService.Delete(id);
-            //    Metas = await _metaService.GetAll();
-            //}
+
+			await _metaService.Delete(id);
+			Metas = await _metaService.GetAll();
+
+		}
+
+        private async void EditMeta(int id, string nombre)
+        {
+
+            await _metaService.Update(id, new Meta { Nombre = nombre});
+            Metas = await _metaService.GetAll();
+
+        }
+
+        private async void MetaEditAtIndex(long i)
+		{
+
+		}
+
+        private async void MetaDeleteAtIndex(long i)
+        {
+
         }
 
         private async void MetaClickedAtIndex(long i)
@@ -68,6 +97,47 @@ namespace ControlDeMetas.Client.Pages
             if (_tareaList != null)
                 _tareaList.Refresh();
 
+        }
+
+        
+        private void DialogOpen(Object args)
+        {
+            
+        }
+        private void DialogClose(Object args)
+        {
+            
+        }
+        private void OnBtnClick()
+        {
+            this.Visibility = true;
+        }
+        private async void AceptarClick()
+        {
+            if (this.MetaTextboxObj.Value != "")
+            {
+                NombreMeta = this.MetaTextboxObj.Value;
+                await GuardarMeta(NombreMeta);
+                
+            }
+            await CargarMetas();
+            this.Visibility = false;
+        }
+
+        private void CancelarClick()
+        {
+            this.Visibility = false;
+        }
+
+        private async Task GuardarMeta(string nombre)
+		{
+            var nuevaMeta = new Meta
+            {
+                Nombre = nombre,
+
+            };
+
+            await _metaService.Add(nuevaMeta);
         }
     }
 }

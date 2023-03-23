@@ -9,7 +9,7 @@ namespace ControlDeMetas.DAL.Configurations
         public void Configure(EntityTypeBuilder<Meta> builder)
         {
             builder.HasKey(m => m.Id);
-            builder.Property(m => m.Nombre).IsRequired().HasMaxLength(50);
+            builder.Property(m => m.Nombre).IsRequired().HasMaxLength(80);
         }
     }
 }

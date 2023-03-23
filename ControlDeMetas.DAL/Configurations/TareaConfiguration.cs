@@ -9,7 +9,7 @@ namespace ControlDeMetas.DAL.Configurations
         public void Configure(EntityTypeBuilder<Tarea> builder)
         {
             builder.HasKey(t => t.Id);
-            builder.Property(t => t.Nombre).IsRequired().HasMaxLength(50);
+            builder.Property(t => t.Nombre).IsRequired().HasMaxLength(80);
             builder.Property(t => t.IdMeta).IsRequired();
             builder.HasOne(t => t.Meta).WithMany(m => m.Tareas).HasForeignKey(t => t.IdMeta);
         }

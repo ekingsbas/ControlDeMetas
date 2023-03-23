@@ -1,4 +1,6 @@
 ﻿@using Syncfusion.Blazor.Buttons;
+@using Syncfusion.Blazor.Popups;
+@using Syncfusion.Blazor.Inputs;
 
 @page "/metas"
 
@@ -12,7 +14,8 @@
         padding: 1rem;
         font-size: 2rem;
         font-weight: bold;
-        font-family: Calibri, GillSans, Trebuchet, sans-serif;
+        /*font-family: Calibri, GillSans, Trebuchet, sans-serif;*/
+        font-family: "Segoe UI", "GeezaPro", "DejaVu Serif", sans-serif, "-apple-system", "BlinkMacSystemFont";
     }
 
     /* Contenedor principal */
@@ -26,7 +29,7 @@
 
     /* Columna izquierda */
     .master-column {
-        width: 50%; /* ancho de la columna izquierda */
+        width: 35%; /* ancho de la columna izquierda */
         display: flex;
         flex-direction: column;
         margin-right: 1rem;
@@ -117,7 +120,7 @@
     }
 
     .detail-column {
-        width: 50%; /* ancho de la columna derecha */
+        width: 65%; /* ancho de la columna derecha */
         display: flex;
         flex-direction: column;
     }
@@ -199,7 +202,7 @@
         <div class="master-column">
             <!-- Lista de metas -->
             <div class="meta-buttons">
-                <SfButton class="add-task-button" IconCss="e-icons e-plus-2">Nueva Meta</SfButton>
+                <SfButton class="add-task-button" IconCss="e-icons e-plus-2" OnClick="OnBtnClick">Nueva Meta</SfButton>
                 
             </div>
             @foreach (var meta in Metas)
@@ -209,8 +212,8 @@
                     <div class="meta-name">
                         <span class="bold">@meta.Nombre</span>
                         <div class="meta-actions">
-                            <span class="e-icons e-edit-6"></span>
-                            <span class="e-icons e-delete-2"></span>
+                            <span class="e-icons e-edit-6" @onclick="() => MetaEditAtIndex(meta.Id)"></span>
+                            <span class="e-icons e-delete-2" @onclick="() => MetaDeleteAtIndex(meta.Id)"></span>
                         </div>
                     </div>
                     <div class="meta-date">Fecha creada: @meta.FechaCreacion.ToString("d")</div>
@@ -231,12 +234,7 @@
             <!-- Detalle de la meta seleccionada -->
             <div class="meta-detail">
                 <div class="meta-title">@nombreMeta</div>
-                <div class="meta-buttons">
-                    <SfButton class="add-task-button" IconCss="e-icons e-plus-2">Agregar tarea</SfButton>
-                    <SfButton class="complete-task-button" IconCss="e-icons e-check">Completar tarea</SfButton>
-                    <SfButton class="edit-task-button" IconCss="e-icons e-edit-6">Editar</SfButton>
-                    <SfButton class="delete-task-button" IconCss="e-icons e-delete-2">Eliminar</SfButton>
-                </div>
+                
                 <div>
 
                     <!-- Lista de tareas -->
@@ -251,3 +249,21 @@
         </div>
     </div>
 </div>
+
+@*Dialog para nueva meta*@
+<SfDialog Width="335px" IsModal="true" @bind-Visible="@Visibility" @ref="NuevaMetaDialog">
+        <DialogTemplates>
+            <Header> Agregar nueva meta </Header>
+            <Content>
+                <SfTextBox ID="inNombreMeta" @bind-Value="@NombreMeta" 
+                    @ref="MetaTextboxObj" Type="InputType.Text" Placeholder="Nombre"
+                    HtmlAttributes="@(new Dictionary<string,object>() { { "maxLength", "80" } })"/>
+            </Content>
+        </DialogTemplates>
+        <DialogButtons>
+            <DialogButton Content="Aceptar" IsPrimary="true" OnClick="@AceptarClick" CssClass="add-task-button" />
+            <DialogButton Content="Cancelar" IsPrimary="false" OnClick="@CancelarClick" CssClass="add-task-button"/>
+        </DialogButtons>
+        <DialogEvents OnOpen="@DialogOpen" Closed="@DialogClose" ></DialogEvents>
+        <DialogAnimationSettings Effect="@DialogEffect.None"></DialogAnimationSettings>
+    </SfDialog>

@@ -32,7 +32,13 @@ namespace ControlDeMetas.Client.Services
 
         public async Task Update(int id, Meta meta)
         {
-            await _httpClient.PutAsJsonAsync($"api/metas/{id}", meta);
+            var editMeta = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{id}");
+            if (editMeta != null)
+			{
+                editMeta.Nombre = meta.Nombre;
+                await _httpClient.PutAsJsonAsync($"api/metas/{id}", editMeta);
+            }
+            
         }
 
         public async Task Delete(int id)
