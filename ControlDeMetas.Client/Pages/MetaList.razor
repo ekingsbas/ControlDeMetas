@@ -63,9 +63,15 @@
         display: flex;
     }
 
-    .edit-icon,
-    .delete-icon {
-        margin-left: 0.5rem;
+    
+    .e-edit-6:before {
+        content: '\e7a3';
+        font-size: 16px;
+    }
+
+    .e-delete-2:before {
+        content: '\e33e';
+        font-size: 16px;
     }
 
     .meta-date {
@@ -98,6 +104,18 @@
     }
 
     /* Columna derecha */
+
+    
+    .e-plus-2:before {
+        content: '\e823';
+        font-size: 16px;
+    }
+
+    .e-check:before {
+        content: '\e7ff';
+        font-size: 16px;
+    }
+
     .detail-column {
         width: 50%; /* ancho de la columna derecha */
         display: flex;
@@ -124,8 +142,8 @@
 
     .add-task-button,
     .complete-task-button,
-    .edit-meta-button,
-    .delete-meta-button {
+    .edit-task-button,
+    .delete-task-button {
         background-color: #007bff;
         color: #fff;
         border: none;
@@ -136,8 +154,8 @@
 
         .add-task-button:hover,
         .complete-task-button:hover,
-        .edit-meta-button:hover,
-        .delete-meta-button:hover {
+        .edit-task-button:hover,
+        .delete-task-button:hover {
             background-color: #0069d9;
         }
 
@@ -180,6 +198,10 @@
     <div class="container">
         <div class="master-column">
             <!-- Lista de metas -->
+            <div class="meta-buttons">
+                <SfButton class="add-task-button" IconCss="e-icons e-plus-2">Nueva Meta</SfButton>
+                
+            </div>
             @foreach (var meta in Metas)
             {
                 @*<div class="meta-group">*@
@@ -187,9 +209,8 @@
                     <div class="meta-name">
                         <span class="bold">@meta.Nombre</span>
                         <div class="meta-actions">
-                            @*<SfButton IconCss="e-icons e-chevron-down-fill" Content="Show dropdown" IconPosition="IconPosition.Right"></SfButton>*@
-                            <span class="edit-icon"></span>
-                            <span class="delete-icon"></span>
+                            <span class="e-icons e-edit-6"></span>
+                            <span class="e-icons e-delete-2"></span>
                         </div>
                     </div>
                     <div class="meta-date">Fecha creada: @meta.FechaCreacion.ToString("d")</div>
@@ -211,10 +232,10 @@
             <div class="meta-detail">
                 <div class="meta-title">@nombreMeta</div>
                 <div class="meta-buttons">
-                    <button class="add-task-button">Agregar tarea</button>
-                    <button class="complete-task-button">Completar tarea</button>
-                    <button class="edit-meta-button">Editar</button>
-                    <button class="delete-meta-button">Eliminar</button>
+                    <SfButton class="add-task-button" IconCss="e-icons e-plus-2">Agregar tarea</SfButton>
+                    <SfButton class="complete-task-button" IconCss="e-icons e-check">Completar tarea</SfButton>
+                    <SfButton class="edit-task-button" IconCss="e-icons e-edit-6">Editar</SfButton>
+                    <SfButton class="delete-task-button" IconCss="e-icons e-delete-2">Eliminar</SfButton>
                 </div>
                 <div>
 
