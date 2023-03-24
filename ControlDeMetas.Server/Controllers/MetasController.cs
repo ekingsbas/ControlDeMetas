@@ -57,7 +57,7 @@ namespace ControlDeMetas.Server.Controllers
                 return BadRequest();
             }
 
-            var duplicadaMeta = await _metaService.GetAsync(m => m.Nombre == meta.Nombre);
+            var duplicadaMeta = await _metaService.GetAsync(m => m.Nombre == meta.Nombre && m.Id != meta.Id);
 
             if (duplicadaMeta.Any())
                 return Conflict(meta);

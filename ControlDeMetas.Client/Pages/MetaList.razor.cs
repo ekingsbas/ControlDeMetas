@@ -20,6 +20,9 @@ namespace ControlDeMetas.Client.Pages
         [Inject]
         public MetaClientService _metaService { get; set; }
 
+        [Inject]
+        public TareaClientService _tareaService { get; set; }
+
 
         private long? selectedMetaId;
 
@@ -59,13 +62,24 @@ namespace ControlDeMetas.Client.Pages
         //    _navigationManager.NavigateTo($"/meta/edit/{id}");
         //}
 
-        private async void DeleteMeta(int id)
-        {
+   //     private async void DeleteMeta(int id)
+   //     {
 
-			await _metaService.Delete(id);
-			Metas = await _metaService.GetAll();
+   //         //Lista de tareas
+   //         var tareas = await _tareaService.GetAllById(id);
 
-		}
+   //         if (tareas != null)
+   //         {
+   //             foreach (var tarea in tareas)
+   //                 await _tareaService.Delete(tarea.Id);
+   //         }
+
+			//await _metaService.Delete(id);
+			//Metas = await _metaService.GetAll();
+   //         await _tareaList.Refresh();
+
+
+   //     }
 
         private async void EditMeta(long id, string nombre)
         {
@@ -111,7 +125,7 @@ namespace ControlDeMetas.Client.Pages
                 nombreMeta = metaSeleccionada.Nombre;
 
             if (_tareaList != null)
-                _tareaList.Refresh();
+                await _tareaList.Refresh();
 
         }
 
@@ -160,14 +174,36 @@ namespace ControlDeMetas.Client.Pages
 
         private async void DeleteOkClick()
         {
-            if (selectedMetaId != null)
+            try
             {
-                await _metaService.Delete((long)selectedMetaId);
+                if (selectedMetaId != null)
+                {
+                    //Lista de tareas
+                    var tareas = await _tareaService.GetAllById((long)selectedMetaId);
+
+                    if (tareas != null)
+                    {
+                        foreach (var tarea in tareas)
+                            await _tareaService.DeleteOnly(tarea.Id);
+                    }
+
+                    await _metaService.Delete((long)selectedMetaId);
+                    Metas = await _metaService.GetAll();
+                    await _tareaList.Refresh();
+
+                    _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+                }
+
+
+            }
+            catch { }
+            finally
+            {
+
+                await CargarMetas();
+                this.IsVisible = false;
             }
             
-
-            await CargarMetas();
-            this.IsVisible = false;
         }
 
         private void DeleteCancelClick()

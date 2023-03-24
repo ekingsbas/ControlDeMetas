@@ -1,5 +1,6 @@
 ﻿using ControlDeMetas.Shared.Entities;
 using System.Net.Http.Json;
+using System.Threading;
 
 namespace ControlDeMetas.Client.Services
 {
@@ -31,6 +32,20 @@ namespace ControlDeMetas.Client.Services
         public async Task Add(Tarea tarea)
         {
             await _httpClient.PostAsJsonAsync("api/tareas", tarea);
+
+            var metaSelecionada = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{tarea.IdMeta}");
+            Console.WriteLine("meta: " + metaSelecionada.ToString());
+
+            if (metaSelecionada != null)
+            {
+
+                metaSelecionada.TotalTareas = metaSelecionada.TotalTareas + 1;
+                metaSelecionada.Cumplimiento = ((decimal)metaSelecionada.TareasCompletadas / (decimal)metaSelecionada.TotalTareas) * (decimal)100;
+
+                var response = await _httpClient.PutAsJsonAsync($"api/metas/{tarea.IdMeta}", metaSelecionada);
+
+                Console.WriteLine($"Response: {response}");
+            }
         }
 
         public async Task Update(long id, Tarea tarea)
@@ -59,29 +74,71 @@ namespace ControlDeMetas.Client.Services
 
             if (tareaSeleccionada != null)
             {
-                
-                    tarea.Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada;
+
+                tareaSeleccionada.Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada;
 
 
-                await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tareaSeleccionada);
+                await _httpClient.PutAsJsonAsync($"api/tareas/completar/{id}", tareaSeleccionada);
+
+                var metaSelecionada = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{tareaSeleccionada.IdMeta}");
+
+                if (metaSelecionada != null)
+                {
+
+                    metaSelecionada.TareasCompletadas = metaSelecionada.TareasCompletadas + 1;
+                    metaSelecionada.Cumplimiento = ((decimal)metaSelecionada.TareasCompletadas / (decimal)metaSelecionada.TotalTareas) * (decimal)100;
+
+                    await _httpClient.PutAsJsonAsync($"api/metas/{metaSelecionada.Id}", metaSelecionada);
+                }
             }
 
-            var metaSelecionada = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{id}");
+            
 
-            if (metaSelecionada != null)
-            {
+        }
 
-                tarea.Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada;
-
-
-                await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tareaSeleccionada);
-            }
-
+        public async Task DeleteOnly(long id)
+        {
+            await _httpClient.DeleteAsync($"api/tareas/{id}");
         }
 
         public async Task Delete(long id)
         {
-            await _httpClient.DeleteAsync($"api/tareas/{id}");
+            try
+            {
+                var tareaSeleccionada = await _httpClient.GetFromJsonAsync<Tarea>($"api/tareas/{id}");
+
+
+
+                if (tareaSeleccionada != null)
+                {
+                    var metaSelecionada = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{tareaSeleccionada.IdMeta}");
+
+                    if (metaSelecionada != null)
+                    {
+
+                        metaSelecionada.TotalTareas = metaSelecionada.TotalTareas - 1;
+
+                        if (tareaSeleccionada.Estatus == ControlDeMetas.Shared.Enums.EstatusTarea.Completada)
+                        {
+                            metaSelecionada.TareasCompletadas = metaSelecionada.TareasCompletadas - 1;
+                        }
+
+                        metaSelecionada.Cumplimiento = ((decimal)metaSelecionada.TareasCompletadas / (decimal)metaSelecionada.TotalTareas) * (decimal)100;
+
+                        await _httpClient.PutAsJsonAsync($"api/metas/{tareaSeleccionada.IdMeta}", metaSelecionada);
+                    }
+
+                    await _httpClient.DeleteAsync($"api/tareas/{id}");
+
+
+                }
+            }
+            catch
+            {
+
+            }
+
+            
         }
     }
 }

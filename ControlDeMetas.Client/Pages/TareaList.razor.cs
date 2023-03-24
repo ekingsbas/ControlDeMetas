@@ -106,12 +106,35 @@ namespace ControlDeMetas.Client.Pages
 
         private async void OnBtnCompletarClick()
         {
+            var selectedRecords = await Grid.GetSelectedRecordsAsync();
 
+            if (selectedRecords != null)
+            {
+                tareaSeleccionada = selectedRecords.FirstOrDefault();
+                if (tareaSeleccionada != null)
+                {
+                    await _tareaService.Complete(tareaSeleccionada.Id, tareaSeleccionada);
+                }
+
+                await Refresh();
+            }
         }
 
         private async void OnBtnEliminarClick()
         {
+            var selectedRecords = await Grid.GetSelectedRecordsAsync();
 
+            if (selectedRecords != null)
+            {
+                tareaSeleccionada = selectedRecords.FirstOrDefault();
+                if (tareaSeleccionada != null)
+                {
+                    selectedTareaId = tareaSeleccionada.Id;
+                    this.IsVisible = true;
+                }
+
+
+            }
         }
 
         private async void AceptarClick()
@@ -188,22 +211,6 @@ namespace ControlDeMetas.Client.Pages
 
         }
 
-        private async void CompletarTarea()
-        {
-            var selectedRecords = await Grid.GetSelectedRecordsAsync();
-
-            if (selectedRecords != null)
-            {
-                foreach (var tarea in selectedRecords)
-                    await _tareaService.Update(tarea.Id, new Tarea { Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada });
-
-                Tareas = await _tareaService.GetAll();
-            }
-
-            
-            Tareas = await _tareaService.GetAll();
-
-        }
 
         private async Task DeleteTarea()
         {

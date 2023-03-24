@@ -60,7 +60,7 @@ namespace ControlDeMetas.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Tarea tarea)
         {
-            var duplicadaTarea = await _tareaService.GetAsync(m => m.Nombre == tarea.Nombre);
+            var duplicadaTarea = await _tareaService.GetAsync(m => m.Nombre == tarea.Nombre && m.Id != tarea.Id);
 
             if (duplicadaTarea.Any())
                 return Conflict(tarea);
