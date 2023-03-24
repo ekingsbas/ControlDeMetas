@@ -29,10 +29,12 @@ namespace ControlDeMetas.Client.Pages
 
         private Meta metaSeleccionada = new Meta();
         private bool Visibility { get; set; } = false;
+        private bool IsVisible { get; set; } = false;
 
         private string NombreMeta;
 
         SfTextBox MetaTextboxObj;
+        
 
         public MetaList()
         {
@@ -52,10 +54,10 @@ namespace ControlDeMetas.Client.Pages
             Metas = await _metaService.GetAll();
         }
 
-        private void EditMeta(int id)
-        {
-            _navigationManager.NavigateTo($"/meta/edit/{id}");
-        }
+        //private void EditMeta(int id)
+        //{
+        //    _navigationManager.NavigateTo($"/meta/edit/{id}");
+        //}
 
         private async void DeleteMeta(int id)
         {
@@ -65,7 +67,7 @@ namespace ControlDeMetas.Client.Pages
 
 		}
 
-        private async void EditMeta(int id, string nombre)
+        private async void EditMeta(long id, string nombre)
         {
 
             await _metaService.Update(id, new Meta { Nombre = nombre});
@@ -75,12 +77,26 @@ namespace ControlDeMetas.Client.Pages
 
         private async void MetaEditAtIndex(long i)
 		{
+            
+            metaSeleccionada = await _metaService.GetById(i);
 
-		}
+            if (metaSeleccionada != null)
+            {
+                NombreMeta = metaSeleccionada.Nombre;
+                this.Visibility = true;
+            }
+                
+        }
 
         private async void MetaDeleteAtIndex(long i)
         {
+            metaSeleccionada = await _metaService.GetById(i);
 
+            if (metaSeleccionada != null)
+            {
+                NombreMeta = metaSeleccionada.Nombre;
+                this.IsVisible = true;
+            }
         }
 
         private async void MetaClickedAtIndex(long i)
@@ -108,18 +124,31 @@ namespace ControlDeMetas.Client.Pages
         {
             
         }
-        private void OnBtnClick()
+        private void OnBtnNuevaClick()
         {
+            this.metaSeleccionada = new Meta();
             this.Visibility = true;
         }
         private async void AceptarClick()
         {
-            if (this.MetaTextboxObj.Value != "")
+            if (metaSeleccionada.Id == 0)
+            {
+                if (this.MetaTextboxObj.Value != "")
+                {
+                    NombreMeta = this.MetaTextboxObj.Value;
+                    await GuardarMeta(NombreMeta);
+
+                }
+
+            }
+            else
             {
                 NombreMeta = this.MetaTextboxObj.Value;
-                await GuardarMeta(NombreMeta);
-                
+
+                EditMeta(metaSeleccionada.Id, NombreMeta);
             }
+
+            
             await CargarMetas();
             this.Visibility = false;
         }
@@ -127,6 +156,23 @@ namespace ControlDeMetas.Client.Pages
         private void CancelarClick()
         {
             this.Visibility = false;
+        }
+
+        private async void DeleteOkClick()
+        {
+            if (selectedMetaId != null)
+            {
+                await _metaService.Delete((long)selectedMetaId);
+            }
+            
+
+            await CargarMetas();
+            this.IsVisible = false;
+        }
+
+        private void DeleteCancelClick()
+        {
+            this.IsVisible = false;
         }
 
         private async Task GuardarMeta(string nombre)

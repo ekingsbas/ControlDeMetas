@@ -23,7 +23,7 @@ namespace ControlDeMetas.Client.Services
             return await _httpClient.GetFromJsonAsync<List<Tarea>>($"api/Tareas/byid/{tareaId}");
         }
 
-        public async Task<Tarea> GetById(int id)
+        public async Task<Tarea> GetById(long id)
         {
             return await _httpClient.GetFromJsonAsync<Tarea>($"api/tareas/{id}");
         }
@@ -33,12 +33,25 @@ namespace ControlDeMetas.Client.Services
             await _httpClient.PostAsJsonAsync("api/tareas", tarea);
         }
 
-        public async Task Update(int id, Tarea tarea)
+        public async Task Update(long id, Tarea tarea)
         {
-            await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tarea);
+            var tareaSeleccionada = await _httpClient.GetFromJsonAsync<Tarea>($"api/tareas/{id}");
+
+            if (tareaSeleccionada != null )
+            {
+                if (tareaSeleccionada.Nombre != tarea.Nombre && tarea.Nombre != null)
+                    tarea.Nombre = tarea.Nombre;
+
+                if (tareaSeleccionada.Estatus != tarea.Estatus )
+                    tarea.Estatus = tarea.Estatus;
+
+
+                await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tareaSeleccionada);
+            }
+            
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(long id)
         {
             await _httpClient.DeleteAsync($"api/tareas/{id}");
         }

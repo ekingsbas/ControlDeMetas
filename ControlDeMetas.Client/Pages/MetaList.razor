@@ -202,7 +202,7 @@
         <div class="master-column">
             <!-- Lista de metas -->
             <div class="meta-buttons">
-                <SfButton class="add-task-button" IconCss="e-icons e-plus-2" OnClick="OnBtnClick">Nueva Meta</SfButton>
+                <SfButton class="add-task-button" IconCss="e-icons e-plus-2" OnClick="OnBtnNuevaClick">Nueva Meta</SfButton>
                 
             </div>
             @foreach (var meta in Metas)
@@ -250,7 +250,7 @@
     </div>
 </div>
 
-@*Dialog para nueva meta*@
+@*Dialogos*@
 <SfDialog Width="335px" IsModal="true" @bind-Visible="@Visibility" >
         <DialogTemplates>
             <Header> Agregar nueva meta </Header>
@@ -267,3 +267,14 @@
         <DialogEvents OnOpen="@DialogOpen" Closed="@DialogClose" ></DialogEvents>
         <DialogAnimationSettings Effect="@DialogEffect.None"></DialogAnimationSettings>
     </SfDialog>
+
+<SfDialog Width="250px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible" ID="DeleteDialog">
+    <DialogTemplates>
+        <Header> ¿Está seguro? </Header>
+        <Content> ¿Desea eliminar esta meta? </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Aceptar" IsPrimary="true" OnClick="@DeleteOkClick" CssClass="add-task-button" />
+        <DialogButton Content="Cancelar" OnClick="@DeleteCancelClick" CssClass="add-task-button" />
+    </DialogButtons>
+</SfDialog>

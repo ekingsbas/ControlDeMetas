@@ -13,7 +13,7 @@ namespace ControlDeMetas.DAL.Contracts
         Task<TEntity> GetByIdAsync(long id);
         Task<TEntity> AddAsync(TEntity entity);
         Task<TEntity> UpdateAsync(TEntity entity);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(long id);
         Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes);
     }
 }

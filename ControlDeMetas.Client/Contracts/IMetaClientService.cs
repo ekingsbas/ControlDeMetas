@@ -7,8 +7,8 @@ namespace ControlDeMetas.Client.Contracts
         Task<List<Meta>> GetAll();
         Task<Meta> GetById(long id);
         Task Add(Meta meta);
-        Task Update(int id, Meta meta);
-        Task Delete(int id);
+        Task Update(long id, Meta meta);
+        Task Delete(long id);
 
     }
 }

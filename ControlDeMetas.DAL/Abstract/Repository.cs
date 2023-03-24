@@ -64,17 +64,26 @@ namespace ControlDeMetas.DAL.Abstract
             return entity;
         }
 
-        public virtual async Task<bool> DeleteAsync(int id)
+        public virtual async Task<bool> DeleteAsync(long id)
         {
-            var entity = await _dbSet.FindAsync(id);
-            if (entity != null)
+            try
             {
-                _dbSet.Remove(entity);
-                if (await _dbContext.SaveChangesAsync() > 0)
-                    return true;
-                else
-                    return false;
+                var entity = await _dbSet.FindAsync(id);
+                if (entity != null)
+                {
+                    _dbSet.Remove(entity);
+                    if (await _dbContext.SaveChangesAsync() > 0)
+                        return true;
+                    else
+                        return false;
+                }
             }
+            catch
+            {
+                throw;
+            }
+            
+            
 
             return false;
             

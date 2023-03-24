@@ -30,7 +30,7 @@ namespace ControlDeMetas.Client.Services
             await _httpClient.PostAsJsonAsync("api/metas", meta);
         }
 
-        public async Task Update(int id, Meta meta)
+        public async Task Update(long id, Meta meta)
         {
             var editMeta = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{id}");
             if (editMeta != null)
@@ -41,7 +41,7 @@ namespace ControlDeMetas.Client.Services
             
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(long id)
         {
             await _httpClient.DeleteAsync($"api/metas/{id}");
         }

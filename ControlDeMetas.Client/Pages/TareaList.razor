@@ -1,14 +1,16 @@
 ﻿@using ControlDeMetas.Shared.Entities;
 @using Syncfusion.Blazor;
 @using Syncfusion.Blazor.Grids;
+@using Syncfusion.Blazor.Popups;
+@using Syncfusion.Blazor.Inputs;
 @using Syncfusion.Blazor.Buttons;
 
 
 <div class="meta-buttons">
-    <SfButton class="add-task-button" IconCss="e-icons e-plus-2">Agregar tarea</SfButton>
-    <SfButton class="complete-task-button" IconCss="e-icons e-check">Completar tarea</SfButton>
-    <SfButton class="edit-task-button" IconCss="e-icons e-edit-6">Editar</SfButton>
-    <SfButton class="delete-task-button" IconCss="e-icons e-delete-2">Eliminar</SfButton>
+    <SfButton class="add-task-button" IconCss="e-icons e-plus-2" OnClick="OnBtnNuevaClick">Agregar tarea</SfButton>
+    <SfButton class="complete-task-button" IconCss="e-icons e-check" OnClick="OnBtnCompletarClick">Completar tarea</SfButton>
+    <SfButton class="edit-task-button" IconCss="e-icons e-edit-6" OnClick="OnBtnEditarClick">Editar</SfButton>
+    <SfButton class="delete-task-button" IconCss="e-icons e-delete-2" OnClick="OnBtnEliminarClick">Eliminar</SfButton>
 </div>
 <div>
     @if (Tareas != null)
@@ -19,7 +21,7 @@
             </GridFilterSettings>
             <GridPageSettings PageSize="10" PageCount="5" PageSizes="@pagerDropdown">
             </GridPageSettings>
-            <GridSelectionSettings EnableToggle="true" PersistSelection="true" CheckboxMode="CheckboxSelectionType.ResetOnRowClick" Type="Syncfusion.Blazor.Grids.SelectionType.Multiple"></GridSelectionSettings>
+            <GridSelectionSettings EnableToggle="true" PersistSelection="true" CheckboxMode="CheckboxSelectionType.ResetOnRowClick" Type="Syncfusion.Blazor.Grids.SelectionType.Single"></GridSelectionSettings>
             <GridColumns>
                 <GridColumn Type="ColumnType.CheckBox" Width="50" AllowFiltering="false"></GridColumn>
                 <GridColumn TextAlign="TextAlign.Center" Width="50" AllowFiltering="false">
@@ -38,6 +40,7 @@
                         }
                     </Template>
                 </GridColumn>
+                <GridColumn Field=@nameof(Tarea.Id) HeaderText="ID" IsPrimaryKey="true" Visible="false"></GridColumn>
                 <GridColumn Field=@nameof(Tarea.Nombre) HeaderText="Tarea"></GridColumn>
                 <GridColumn Field=@nameof(Tarea.FechaCreacion) HeaderText="Fecha"></GridColumn>
                 <GridColumn Field=@nameof(Tarea.Estatus) HeaderText="Estado"></GridColumn>
@@ -52,3 +55,32 @@
     }
 
 </style>
+
+@*Dialogos*@
+<SfDialog Width="335px" IsModal="true" @bind-Visible="@Visibility" >
+        <DialogTemplates>
+            <Header> Agregar nueva tarea </Header>
+            <Content>
+                <SfTextBox ID="inNombreMeta" @bind-Value="@NombreTarea" 
+                    @ref="TareaTextboxObj" Type="InputType.Text" Placeholder="Nombre"
+                    HtmlAttributes="@(new Dictionary<string,object>() { { "maxLength", "80" } })"/>
+            </Content>
+        </DialogTemplates>
+        <DialogButtons>
+            <DialogButton Content="Aceptar" IsPrimary="true" OnClick="@AceptarClick" CssClass="add-task-button" />
+            <DialogButton Content="Cancelar" IsPrimary="false" OnClick="@CancelarClick" CssClass="add-task-button"/>
+        </DialogButtons>
+        <DialogEvents OnOpen="@DialogOpen" Closed="@DialogClose" ></DialogEvents>
+        <DialogAnimationSettings Effect="@DialogEffect.None"></DialogAnimationSettings>
+    </SfDialog>
+
+<SfDialog Width="250px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible" ID="DeleteDialog" >
+    <DialogTemplates>
+        <Header> ¿Está seguro? </Header>
+        <Content> ¿Desea eliminar esta meta? </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Aceptar" IsPrimary="true" OnClick="@DeleteOkClick" CssClass="add-task-button" />
+        <DialogButton Content="Cancelar" OnClick="@DeleteCancelClick" CssClass="add-task-button" />
+    </DialogButtons>
+</SfDialog>
