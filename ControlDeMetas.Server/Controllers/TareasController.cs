@@ -48,6 +48,11 @@ namespace ControlDeMetas.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Tarea tarea)
         {
+            var duplicadaTarea = await _tareaService.GetAsync(m => m.Nombre == tarea.Nombre);
+
+            if (duplicadaTarea.Any())
+                return Conflict(tarea);
+
             var createdTarea = await _tareaService.AddAsync(tarea);
             return CreatedAtAction(nameof(GetById), new { id = createdTarea.Id }, createdTarea);
         }
@@ -55,6 +60,25 @@ namespace ControlDeMetas.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Tarea tarea)
         {
+            var duplicadaTarea = await _tareaService.GetAsync(m => m.Nombre == tarea.Nombre);
+
+            if (duplicadaTarea.Any())
+                return Conflict(tarea);
+
+            if (id != tarea.Id)
+            {
+                return BadRequest();
+            }
+
+            await _tareaService.UpdateAsync(tarea);
+
+            return NoContent();
+        }
+
+        [HttpPut("completar/{id}")]
+        public async Task<IActionResult> Complete(int id, Tarea tarea)
+        {
+            
             if (id != tarea.Id)
             {
                 return BadRequest();

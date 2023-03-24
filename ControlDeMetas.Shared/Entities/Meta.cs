@@ -11,7 +11,7 @@ namespace ControlDeMetas.Shared.Entities
         public int TotalTareas { get; set; }
         
         public decimal Cumplimiento { get; set; }
-
-        public ICollection<Tarea>? Tareas { get; set; } // Propiedad de navegación
+        
+        public virtual ICollection<Tarea>? Tareas { get; set; } // Propiedad de navegación
     }
 }

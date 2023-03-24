@@ -85,16 +85,35 @@ namespace ControlDeMetas.Client.Pages
             this.Visibility = true;
         }
 
-        private void OnBtnEditarClick()
+        private async void OnBtnEditarClick()
         {
-            tareaSeleccionada = await _tareaService.GetById(i);
+            var selectedRecords = await Grid.GetSelectedRecordsAsync();
 
-            if (metaSeleccionada != null)
+            if (selectedRecords != null)
             {
-                NombreMeta = metaSeleccionada.Nombre;
-                this.Visibility = true;
+                tareaSeleccionada = selectedRecords.FirstOrDefault();
+                if (tareaSeleccionada != null)
+                {
+                    NombreTarea = tareaSeleccionada.Nombre;
+                    this.Visibility = true;
+                }
+
+                
             }
+
+            
         }
+
+        private async void OnBtnCompletarClick()
+        {
+
+        }
+
+        private async void OnBtnEliminarClick()
+        {
+
+        }
+
         private async void AceptarClick()
         {
             if (tareaSeleccionada.Id == 0)
@@ -111,7 +130,7 @@ namespace ControlDeMetas.Client.Pages
             {
                 NombreTarea = this.TareaTextboxObj.Value;
 
-                EditTarea(tareaSeleccionada.Id, NombreTarea);
+                EditTarea(NombreTarea);
             }
 
 
@@ -147,7 +166,7 @@ namespace ControlDeMetas.Client.Pages
             var nuevaTarea = new Tarea
             {
                 Nombre = nombre,
-
+                IdMeta = MetaSelected.Id
             };
 
             await _tareaService.Add(nuevaTarea);

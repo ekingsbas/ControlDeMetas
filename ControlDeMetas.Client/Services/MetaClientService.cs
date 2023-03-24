@@ -27,7 +27,8 @@ namespace ControlDeMetas.Client.Services
 
         public async Task Add(Meta meta)
         {
-            await _httpClient.PostAsJsonAsync("api/metas", meta);
+            var response = await _httpClient.PostAsJsonAsync("api/metas", meta);
+            Console.WriteLine(response);
         }
 
         public async Task Update(long id, Meta meta)
@@ -36,7 +37,8 @@ namespace ControlDeMetas.Client.Services
             if (editMeta != null)
 			{
                 editMeta.Nombre = meta.Nombre;
-                await _httpClient.PutAsJsonAsync($"api/metas/{id}", editMeta);
+                var response = await _httpClient.PutAsJsonAsync($"api/metas/{id}", editMeta);
+                Console.WriteLine(response);
             }
             
         }

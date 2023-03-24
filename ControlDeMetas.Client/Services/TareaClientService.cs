@@ -51,6 +51,34 @@ namespace ControlDeMetas.Client.Services
             
         }
 
+        public async Task Complete(long id, Tarea tarea)
+        {
+            var tareaSeleccionada = await _httpClient.GetFromJsonAsync<Tarea>($"api/tareas/{id}");
+
+            
+
+            if (tareaSeleccionada != null)
+            {
+                
+                    tarea.Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada;
+
+
+                await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tareaSeleccionada);
+            }
+
+            var metaSelecionada = await _httpClient.GetFromJsonAsync<Meta>($"api/metas/{id}");
+
+            if (metaSelecionada != null)
+            {
+
+                tarea.Estatus = ControlDeMetas.Shared.Enums.EstatusTarea.Completada;
+
+
+                await _httpClient.PutAsJsonAsync($"api/tareas/{id}", tareaSeleccionada);
+            }
+
+        }
+
         public async Task Delete(long id)
         {
             await _httpClient.DeleteAsync($"api/tareas/{id}");

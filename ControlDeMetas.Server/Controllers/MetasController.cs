@@ -40,6 +40,11 @@ namespace ControlDeMetas.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Meta meta)
         {
+            var duplicadaMeta = await _metaService.GetAsync(m => m.Nombre == meta.Nombre);
+
+            if (duplicadaMeta.Any())
+                return Conflict(meta);
+
             var createdMeta = await _metaService.AddAsync(meta);
             return CreatedAtAction(nameof(GetById), new { id = createdMeta.Id }, createdMeta);
         }
@@ -51,6 +56,11 @@ namespace ControlDeMetas.Server.Controllers
             {
                 return BadRequest();
             }
+
+            var duplicadaMeta = await _metaService.GetAsync(m => m.Nombre == meta.Nombre);
+
+            if (duplicadaMeta.Any())
+                return Conflict(meta);
 
             await _metaService.UpdateAsync(meta);
 

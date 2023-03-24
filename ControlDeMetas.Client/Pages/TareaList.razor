@@ -59,7 +59,7 @@
 @*Dialogos*@
 <SfDialog Width="335px" IsModal="true" @bind-Visible="@Visibility" >
         <DialogTemplates>
-            <Header> Agregar nueva tarea </Header>
+            <Header> Tarea </Header>
             <Content>
                 <SfTextBox ID="inNombreMeta" @bind-Value="@NombreTarea" 
                     @ref="TareaTextboxObj" Type="InputType.Text" Placeholder="Nombre"
@@ -77,7 +77,7 @@
 <SfDialog Width="250px" ShowCloseIcon="true" IsModal="true" @bind-Visible="@IsVisible" ID="DeleteDialog" >
     <DialogTemplates>
         <Header> ¿Está seguro? </Header>
-        <Content> ¿Desea eliminar esta meta? </Content>
+        <Content> ¿Desea eliminar esta tarea? </Content>
     </DialogTemplates>
     <DialogButtons>
         <DialogButton Content="Aceptar" IsPrimary="true" OnClick="@DeleteOkClick" CssClass="add-task-button" />

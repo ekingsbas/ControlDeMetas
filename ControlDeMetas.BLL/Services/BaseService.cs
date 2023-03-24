@@ -31,14 +31,16 @@ namespace ControlDeMetas.BLL.Services
             return await _repository.GetAllAsync();
         }
 
-        //public async Task<IReadOnlyList<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
-        //{
-        //    return await _repository.GetAsync(predicate);
-        //}
+        public virtual async Task<IReadOnlyList<TEntity>> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _repository.ListAsync(predicate);
+        }
+
+
 
         public async Task<TEntity> AddAsync(TEntity entity)
         {
-            return await _repository.AddAsync(entity);
+           return await _repository.AddAsync(entity);
         }
 
         

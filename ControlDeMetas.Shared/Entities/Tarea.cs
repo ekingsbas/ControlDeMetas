@@ -13,6 +13,6 @@ namespace ControlDeMetas.Shared.Entities
         public DateTime FechaCreacion { get; set; } 
         public EstatusTarea  Estatus { get; set; }
 
-        public Meta Meta { get; set; } // Propiedad de navegación
+        public virtual Meta? Meta { get; set; } // Propiedad de navegación
     }
 }
